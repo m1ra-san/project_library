@@ -7,24 +7,49 @@
 </head>
 <body>
     <div class="library">
-        <div class="card">
-            <h2>Title</h2>
-            <p>Author</p>
-            <p>Completed</p>
-        </div>
     </div>
 </body>
 <style>
+    :root{
+        --main-text:white;
+        --main-background-color: rgb(243, 226, 75);
+    }
+
+    *{
+        padding: 0;
+        margin: 0;
+    }
+
+    .library{
+        display: grid;
+        /* grid-template-columns: repeat(auto-fit,minmax(100px,1fr)); */
+        grid-template-columns: repeat(3,200px);
+        gap: 10px;
+    }
+
     .card{
         display: flex;
         flex-direction: column;
-        width: 200px;
+        width: auto;
         height: auto;
-        background-color: rgb(197, 197, 197);
+        background-color:var(--main-background-color);
         border-radius: 10px;
-        border: 2px solid gray;
+        border: 2px solid rgb(234, 198, 128);
         padding: 10px;
+        color: var(--main-text);
+    }
 
+    .card .description{
+        display: flex;
+        flex-direction: column;
+        background-color: rgba(220, 150, 36, 0.678);
+        color: var(--main-text);
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .card .description p:last-child{
+        text-align: end;
     }
 </style>
 <script src="script.js"></script>

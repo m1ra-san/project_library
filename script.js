@@ -1,4 +1,4 @@
-const myLibrary = [
+let myLibrary = [
   {
     title: "Game of thrones:",
     author: "Goerge RR",
@@ -20,7 +20,7 @@ function Book(title, author, pages) {
     this.author = author,
     this.pages = pages,
     this.bookId = crypto.randomUUID();
-  this.isRead = false,
+    this.isRead = false,
     this.info = function () {
       return "The principal story chronicles the power struggle for the Iron Throne among the great Houses of Westeros following the death of King Robert in A Game of Thrones."
     }
@@ -52,10 +52,15 @@ function display(books) {
       <button class="read">Read</button>
       </div>`
 
+
+
     card.querySelector(".delete").addEventListener("click", (e) => {
+      const cardElement = e.target.closest(".card");
+
       // card.remove();
-      const idx = e.target.getAttribute("data-index");
-      books.splice(idx, 1);
+      const idx = cardElement.getAttribute("data-index");
+      let findIndex = books.findIndex(book => book.bookId === idx);
+      books.splice(findIndex, 1);
       display(books);
     });
 
@@ -63,12 +68,12 @@ function display(books) {
       const cardElement = e.target.closest(".card");
 
       //Toggle
-      book.isRead=!book.isRead
+      book.isRead = !book.isRead
       console.log(book.isRead)
       console.log(books)
 
-      e.target.textContent =book.isRead? "Unread" : "Read";
-      cardElement.setAttribute("value",book.isRead)
+      e.target.textContent = book.isRead ? "Unread" : "Read";
+      cardElement.setAttribute("value", book.isRead)
     })
 
     library.appendChild(card)
@@ -76,9 +81,29 @@ function display(books) {
 }
 
 
+document.querySelector('.input-button').addEventListener("click", (e) => {
+
+  const inputDialog = document.querySelector('.input-dialog')
+  inputDialog.showModal()
+})
+
+document.querySelector('#submit-book').addEventListener("click", (e) => {
+  const newTitle = document.querySelector('#title')
+  const newAthour = document.querySelector('#author')
+  const newPages = document.querySelector('#pages')
+  const newBook = {
+    title: newTitle.value,
+    author: newAthour.value,
+    pages: newPages.value,
+  };
+  myLibrary.push(newBook)
+  books = addBookToLibrary(myLibrary)
+  display(books)
+});
 
 
 
-const books = addBookToLibrary(myLibrary);
+
+let books = addBookToLibrary(myLibrary);
 display(books)
 console.log(books)

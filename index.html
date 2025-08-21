@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div class="library">
     </div>
 </body>
 <style>
-    :root{
-        --main-text:white;
+    :root {
+        --main-text: white;
         --main-background-color: rgb(243, 226, 75);
     }
 
-    *{
+
+    * {
         padding: 0;
         margin: 0;
     }
 
-    .library{
+    .library {
         display: grid;
         /* grid-template-columns: repeat(auto-fit,minmax(100px,1fr)); */
-        grid-template-columns: repeat(3,200px);
+        grid-template-columns: repeat(3, 200px);
         gap: 10px;
     }
 
-    .card{
+    .card {
         display: flex;
         flex-direction: column;
         width: auto;
         height: auto;
-        background-color:var(--main-background-color);
+        background-color: var(--main-background-color);
         border-radius: 10px;
         border: 2px solid rgb(234, 198, 128);
         padding: 10px;
         color: var(--main-text);
     }
 
-    .card .description{
+    .card .description {
         display: flex;
         flex-direction: column;
         background-color: rgba(220, 150, 36, 0.678);
@@ -48,9 +51,41 @@
         padding: 5px;
     }
 
-    .card .description p:last-child{
+    .card .description p:last-child {
         text-align: end;
     }
+
+    button {
+        position: relative;
+        width: 80px;
+        background-color: black;
+        border-radius: 4em;
+        padding:  5px 0;
+        color: white;
+        cursor: pointer;
+        user-select: none;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition-duration: 0.4s;
+    }
+
+    button:hover{
+        background-color: rgb(51, 50, 50);
+    }
+
+    .card div:last-child{
+        margin: 5px 0;
+        display: flex;
+        justify-content: center;
+        gap:1rem;
+    }
+
+    .card[value="true"]{
+        background-color: rgb(44, 224, 44);
+    }
+
 </style>
 <script src="script.js"></script>
+
 </html>

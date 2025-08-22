@@ -1,17 +1,7 @@
 let myLibrary = [
-  {
-    title: "Game of thrones:",
-    author: "Goerge RR",
-    pages: 694,
-  }, {
-    title: "Game of thrones:",
-    author: "Goerge RR",
-    pages: 694,
-  }, {
-    title: "sdfafasfafsd",
-    author: "asfafsaa",
-    pages: 694,
-  }
+   new Book("Game of thrones:", "Goerge RR", 694),
+   new Book("Game of thrones:", "Goerge RR", 694), 
+   new Book("Game of thrones:", "Goerge RR", 694),
 ];
 
 
@@ -26,8 +16,17 @@ function Book(title, author, pages) {
     }
 }
 
+Book.prototype.toggleRead = function() {
+    this.isRead = !this.isRead;
+};
+
 function addBookToLibrary() {
-  return myLibrary.map(item => new Book(item.title, item.author, item.pages));
+  const newTitle = document.querySelector('#title')
+  const newAthour = document.querySelector('#author')
+  const newPages = document.querySelector('#pages')
+  const newBook = new Book(newTitle.value, newAthour.value, newPages.value)
+  myLibrary.push(newBook)
+  display(myLibrary);
 }
 
 function display(books) {
@@ -40,6 +39,8 @@ function display(books) {
     card.setAttribute("data-index", book.bookId)
     card.setAttribute("value", book.isRead)
 
+
+
     card.innerHTML =
       `<h2>Title: ${book.title}</h2>
       <p>Author: ${book.author} </p>
@@ -49,11 +50,8 @@ function display(books) {
       </div>
       <div>
       <button class="delete">Delete</button>
-      <button class="read">Read</button>
+      <button class="read">${card.getAttribute("value")==="false" ? "Read" : "Unread"}</button>
       </div>`
-
-
-
     card.querySelector(".delete").addEventListener("click", (e) => {
       const cardElement = e.target.closest(".card");
 
@@ -66,44 +64,29 @@ function display(books) {
 
     card.querySelector(".read").addEventListener("click", (e) => {
       const cardElement = e.target.closest(".card");
-
-      //Toggle
-      book.isRead = !book.isRead
-      console.log(book.isRead)
-      console.log(books)
-
-      e.target.textContent = book.isRead ? "Unread" : "Read";
+      book.toggleRead()
       cardElement.setAttribute("value", book.isRead)
+      e.target.textContent = cardElement.getAttribute("value")==="false" ? "Read" : "Unread";
+      
     })
 
     library.appendChild(card)
+ 
   });
 }
 
 
 document.querySelector('.input-button').addEventListener("click", (e) => {
-
   const inputDialog = document.querySelector('.input-dialog')
   inputDialog.showModal()
 })
 
-document.querySelector('#submit-book').addEventListener("click", (e) => {
-  const newTitle = document.querySelector('#title')
-  const newAthour = document.querySelector('#author')
-  const newPages = document.querySelector('#pages')
-  const newBook = {
-    title: newTitle.value,
-    author: newAthour.value,
-    pages: newPages.value,
-  };
-  myLibrary.push(newBook)
-  books = addBookToLibrary(myLibrary)
-  display(books)
-});
+document.querySelector('#submit-book').addEventListener("click",addBookToLibrary);
 
 
 
 
-let books = addBookToLibrary(myLibrary);
+
+let books = myLibrary;
 display(books)
 console.log(books)
